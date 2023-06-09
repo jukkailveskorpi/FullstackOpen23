@@ -1,2 +1,2 @@
 # FullstackOpen23
-Hki open university MOOC
+Helsinki open University MOOC 2023
