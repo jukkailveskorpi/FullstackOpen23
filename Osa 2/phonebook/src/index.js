@@ -2,11 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+const persons = [
+  {
+    id: 1,
+    name: 'Bill Gates'
+  },
+  {
+    id: 2,
+    name: 'Dan Abramov'
+  },
+  {
+    id: 3,
+    name: 'Steven Jobs'
+  }
+]
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode>
-    <App />
+    <App persons={persons} />
   //</React.StrictMode>
 );
 
