@@ -7,11 +7,12 @@ import Person from './components/Person'
 const App =(props)=> {
   const [persons, setPersons] = useState(props.persons)
   const [newPerson, setNewPerson] = useState("") 
+  const [newNumber, setNewNumber] = useState("")
+  const [newFilter, setNewFilter] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
 
   const addPerson =(event)=> {
     event.preventDefault()
-
     if (
        persons.some(
         (persons) => persons.name.toLowerCase() === newPerson.toLowerCase())
@@ -19,14 +20,17 @@ const App =(props)=> {
        {
         alert (`${newPerson} is already added to phonebook`);
         setNewPerson("");
+        setNewNumber("");
         return
       }
     const personObject = {
       name: newPerson,
+      number: newNumber,
       id: persons.length + 1,
     }
     setPersons(persons.concat(personObject))
     setNewPerson('')
+    setNewNumber('')
   }
 
    //if persons.map(name == {newPerson})
@@ -37,16 +41,30 @@ const App =(props)=> {
     setNewPerson(event.target.value)
   }
 
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
+
+  const filterPerson =()=> {
+    setFilterPerson(event.target.value)
+  }
+
   return (
     <div className="App">
-   
+       <br></br><br></br><br></br>
        <h1>Phonebook</h1>
+       <br></br>
+       Filter shown with <input value={filterPerson} />
        <form onSubmit={addPerson}>
         <input 
         value={newPerson} 
         onChange={handlePersonChange}
+        /><br></br>
+        <input 
+        value={newNumber} 
+        onChange={handleNumberChange}
         />
-        <button type="submit">save</button>
+        <button className="sub" type="submit">save</button>
       </form> 
 
        <ul>
@@ -56,7 +74,7 @@ const App =(props)=> {
             />
           )}
        </ul>
-      
+       <br></br><br></br><br></br><br></br><br></br><br></br>
     </div>
   );
 }

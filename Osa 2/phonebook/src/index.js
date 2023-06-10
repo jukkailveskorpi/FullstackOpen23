@@ -6,15 +6,18 @@ import App from './App';
 const persons = [
   {
     id: 1,
-    name: 'Bill Gates'
+    name: 'Bill Gates',
+    number: '0507263444'
   },
   {
     id: 2,
-    name: 'Dan Abramov'
+    name: 'Dan Abramov',
+    number: '0501163444'
   },
   {
     id: 3,
-    name: 'Steven Jobs'
+    name: 'Steven Jobs',
+    number: '0507263554'
   }
 ]
 
