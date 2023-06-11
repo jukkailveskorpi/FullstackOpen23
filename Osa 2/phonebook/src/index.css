@@ -19,6 +19,37 @@
 
 
 .sub {
-  border-color: #bdd4bb;
-  color:#bdd4bb;
+  border-color: #bbc2d4;
+  color:#839494;
 }
+
+.search {
+  padding: 10px;
+  border: 2px solid  #bbc2d4;
+  color: #bbc2d4;
+  border-radius: 5px 0 0 5px;
+} 
+
+.search:focus {
+  color:#bbc2d4;
+}
+
+/*
+
+.search {
+  padding: 10px;
+  border: 2px solid  #bbc2d4;
+  // border-style:ridge;
+  color: #bbc2d4;
+  border-radius: 5px 0 0 5px;
+  // outline: none;
+} 
+
+
+
+#bbd4d1
+#839494
+#bbc2d4
+#bbc2d4
+#839483
+*/
