@@ -1,7 +1,10 @@
 
 import React, { useState } from 'react'
 import './App.css';
-import Person from './components/Person'
+import Persons from './components/Persons'
+import Header from './components/Header'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 //import Notification from './components/Notification.js'
 
@@ -24,7 +27,7 @@ const App =(props)=> {
         setNewNumber("");
         return
       }
-    const personObject = {
+      const personObject = {
       name: newPerson,
       number: newNumber,
       id: persons.length + 1,
@@ -40,48 +43,68 @@ const App =(props)=> {
 
   const handlePersonChange = (event) => {
     setNewPerson(event.target.value)
-  }
+  } 
 
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
-  }
+  } 
 
- /* const handlefiltered =(event)=> {
+ const handleFilterChange =(event)=> {
     setFilter (event.target.value)
-  } */ 
+  } 
     
   return (
     <div className="App">
        <br></br><br></br><br></br>
-       <h1>Phonebook</h1>
-       <br></br>
-
-       Filter shown with 
-        <div>
-        <input 
-        type="text" 
-        placeholder="Search..." 
-        className="search" 
-        //value={filter} 
-        onChange={(e) => setFilter(e.target.value)} 
-        //onChange={handlefiltered}
-        />
+       <div>
+       <Header />
        </div>
-      
        <br></br>
-       <form onSubmit={addPerson}>
-        Name <input 
-        value={newPerson} 
-        onChange={handlePersonChange}
-        /><br></br>
-        Number <input 
-        value={newNumber} 
-        onChange={handleNumberChange}
+        <div>
+        <Filter 
+         setFilter={setFilter} 
+         handleFilterChange={handleFilterChange}
         />
-        <button className="sub" type="submit">save</button>
-      </form> 
+        </div>
+       <br></br>
+       <div>
+       <PersonForm 
+        addPerson={addPerson}
+        newPerson={newPerson}
+        handlePersonChange={handlePersonChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+       />
+       </div>
+       <div>
+       <Persons 
+        persons={persons} 
+        filter={filter} 
+        />
+        </div>
+       <br></br><br></br><br></br><br></br><br></br><br></br>
+    </div>
+  );
+}
 
-       <ul>
+export default App;
+
+
+  /*
+
+ onSubmit={addPerson}>
+        //name <input 
+        //value={newPerson} 
+        //  onChange={handlePersonChange}
+        /><br></br>
+        number <input 
+        //value={newNumber} 
+        //onChange={handleNumberChange}
+        />
+        <button className="sub" type="submit">add</button>
+      </form>  
+
+  <ul>
          {persons.filter((person) =>
           person.name.toLowerCase().includes(filter))
                 .map((person) => (
@@ -90,12 +113,19 @@ const App =(props)=> {
               />
           ))}
        </ul>
-       <br></br><br></br><br></br><br></br><br></br><br></br>
-    </div>
-  );
-}
 
-export default App;
+
+
+
+        <input 
+        type="text" 
+        placeholder="Search..." 
+        className="search" 
+        //value={filter} 
+        onChange={(e) => setFilter(e.target.value)} 
+        //onChange={handlefiltered}
+        /> */
+
 
  // <Notification message={errorMessage} />
 
