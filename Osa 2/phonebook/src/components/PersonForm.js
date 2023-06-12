@@ -4,9 +4,9 @@ const PersonForm = ({addPerson, newPerson, handlePersonChange, newNumber, handle
     return (
         <form onSubmit={addPerson}>
             <div>
-               name: <input value={newPerson}
+               name and number <br></br><input value={newPerson}
                       onChange={handlePersonChange}/> <br/>
-               number: <input value={newNumber}
+                    <input value={newNumber}
                       onChange={handleNumberChange}/>
             <button type="submit">add</button>
             </div>

@@ -4,7 +4,7 @@ const Filter = (props) => {
 
     return (
       <div>
-       filter shown with 
+       filter shown with <br></br>
        <input type="text" 
         placeholder="Search..." 
         className="search" 
