@@ -1,6 +1,7 @@
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css';
+import axios from 'axios'
 import Persons from './components/Persons'
 import Header from './components/Header'
 import Filter from './components/Filter'
@@ -9,11 +10,21 @@ import PersonForm from './components/PersonForm'
 //import Notification from './components/Notification.js'
 
 const App =(props)=> {
-  const [persons, setPersons] = useState(props.persons)
+  const [persons, setPersons] = useState([])
   const [newPerson, setNewPerson] = useState("") 
   const [newNumber, setNewNumber] = useState("")
   const [filter, setFilter] = useState("")
   //const [errorMessage, setErrorMessage] = useState("")
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+  },[])
+
+
 
   const addPerson =(event)=> {
     event.preventDefault()
