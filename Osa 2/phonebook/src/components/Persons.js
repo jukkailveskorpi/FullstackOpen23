@@ -1,21 +1,29 @@
 import React from 'react';
-import Person from './Person'
+//import Person from './Person'
 
-const Persons = (props) => {
+const Persons = ({ persons, filter, deletePerson }) => {
 
-    const persons = props.persons
-    const filter = props.filter
-
+       // const persons = props.persons
+      // const filter = props.filter
+       //const deletePerson = props.deletePerson
+   
     return (
         <div>
-            {persons.filter((person) =>
-                person.name.toLowerCase().includes(filter))
-                    .map((person) => (
-                    <Person person = {person} 
-                    key={person.id} />)) 
-                    }
+            {persons
+               .filter((person) =>
+                 person.name.toLowerCase().includes(filter))
+                    .map(person => 
+                        <ul key={person.id}>
+                            <>
+                                {person.name} {person.number + "   "} 
+                         
+                            <button type="button" onClick={() => deletePerson(person.id)}>
+                            delete 
+                            </button>      
+                            </>
+                         </ul>  )}    
         </div>
-    )
+   )
 }
   
-  export default Persons
+  export default Persons;

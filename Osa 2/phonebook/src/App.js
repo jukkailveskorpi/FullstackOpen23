@@ -1,32 +1,30 @@
 
 import React, { useState, useEffect } from 'react'
 import './App.css';
-import axios from 'axios'
 import Persons from './components/Persons'
 import Header from './components/Header'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
+import personService from './services/persons'
 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-//import Notification from './components/Notification.js'
 
-const App =(props)=> {
+
+const App =()=> {
   const [persons, setPersons] = useState([])
   const [newPerson, setNewPerson] = useState("") 
   const [newNumber, setNewNumber] = useState("")
   const [filter, setFilter] = useState("")
-  //const [errorMessage, setErrorMessage] = useState("")
+
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   },[])
 
-
-
-  const addPerson =(event)=> {
+  const addPerson = (event) => {
     event.preventDefault()
     if (
        persons.some(
@@ -41,16 +39,16 @@ const App =(props)=> {
       const personObject = {
       name: newPerson,
       number: newNumber,
-      id: persons.length + 1,
     }
-    setPersons(persons.concat(personObject))
-    setNewPerson('')
-    setNewNumber('')
+      personService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewPerson('')
+        setNewNumber('')
+      })
+    
   }
-
-   //if persons.map(name == {newPerson})
-   //alret (`${newName} is already added to phonebook`);
-   // else
 
   const handlePersonChange = (event) => {
     setNewPerson(event.target.value)
@@ -63,6 +61,20 @@ const App =(props)=> {
  const handleFilterChange =(event)=> {
     setFilter (event.target.value)
   } 
+
+ 
+ const deletePerson = (id) => {
+  const person = persons.find((person) => person.id === id);
+  const confirmation = window.confirm(`Delete ${person.name}?`);
+       if(confirmation) {
+
+        personService
+        .deletePerson(id)
+        .then(() => {
+        setPersons(persons.filter((person) => person.id !== id)); 
+ });
+}
+}; 
     
   return (
     <div className="App">
@@ -87,12 +99,15 @@ const App =(props)=> {
         handleNumberChange={handleNumberChange}
        />
        </div>
+       <React.StrictMode>
        <div>
        <Persons 
         persons={persons} 
         filter={filter} 
+        deletePerson={deletePerson}
         />
         </div>
+        </React.StrictMode>
        <br></br><br></br><br></br><br></br><br></br><br></br>
     </div>
   );
@@ -100,70 +115,3 @@ const App =(props)=> {
 
 export default App;
 
-
-  /*
-
- onSubmit={addPerson}>
-        //name <input 
-        //value={newPerson} 
-        //  onChange={handlePersonChange}
-        /><br></br>
-        number <input 
-        //value={newNumber} 
-        //onChange={handleNumberChange}
-        />
-        <button className="sub" type="submit">add</button>
-      </form>  
-
-  <ul>
-         {persons.filter((person) =>
-          person.name.toLowerCase().includes(filter))
-                .map((person) => (
-                <Person key={person.id}
-                 person={person} 
-              />
-          ))}
-       </ul>
-
-
-
-
-        <input 
-        type="text" 
-        placeholder="Search..." 
-        className="search" 
-        //value={filter} 
-        onChange={(e) => setFilter(e.target.value)} 
-        //onChange={handlefiltered}
-        /> */
-
-
- // <Notification message={errorMessage} />
-
- /*
-personsToShow =
-		newFilter === ''
-			? (personsToShow = persons)
-			: (personsToShow = persons.filter(person =>
-					person.name.toLowerCase().includes(newFilter.toLowerCase())
-			  ))
-
-	<PersonForm
-				newName={newName}
-				setNewName={setNewName}
-				newNumber={newNumber}
-				setNewNumber={setNewNumber}
-				persons={persons}
-				setPersons={setPersons}
-				setMessage={setMessage}
-				setMessageType={setMessageType}
-				message={message}
-			/>
-			<h2>Numbers</h2>
-			<Persons
-				personsToShow={personsToShow}
-				setPerson={setPersons}
-				handleDelete={handleDelete}
-				persons={persons}
-			/>
- */
